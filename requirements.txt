@@ -1,0 +1,4 @@
+requests
+markdownify
+discord.py
+python-dotenv

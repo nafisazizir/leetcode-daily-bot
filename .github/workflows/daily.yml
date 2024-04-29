@@ -1,9 +1,9 @@
 name: LeetCode Daily
 
 on:
-push:
-  branches:
-    - main
+  push:
+    branches:
+      - main
 
   # schedule:
   #   - cron: "0 0 * * *" # Run daily at 12 AM UTC

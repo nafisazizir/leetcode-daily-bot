@@ -85,8 +85,7 @@ CHANNEL_ID = int(os.environ.get("CHANNEL_ID"))
 BOT_TOKEN = os.environ.get("BOT_TOKEN")
 
 
-@client.event
-async def on_ready():
+async def create_thread():
     print(f"Logged in as {client.user.name}")
     print(f"Bot ID: {client.user.id}")
 
@@ -120,6 +119,11 @@ async def on_ready():
         )
     else:
         print("Error: Channel not found")
+
+
+@client.event
+async def on_ready():
+    await create_thread()
 
 
 client.run(BOT_TOKEN)

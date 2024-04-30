@@ -117,6 +117,8 @@ async def create_thread():
             content=question_details_md,
             applied_tags=[tag_map[daily_metadata["difficulty"]]],
         )
+        await client.close()
+
     else:
         print("Error: Channel not found")
 

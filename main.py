@@ -77,6 +77,20 @@ def convert_html_to_markdown(html, link):
     return "\n".join(final_md)
 
 
+def sainitize_question_details_md(question_details_md: str) -> str:
+    MAX_LIMIT = 2000
+    length = len(question_details_md)
+
+    if length > MAX_LIMIT:
+        info_message = "--- question description is truncated ---"
+        info_length = len(info_message)
+        new_line_idx = question_details_md[: MAX_LIMIT - info_length].rfind("\n")
+        question_details_md = question_details_md[:new_line_idx]
+        question_details_md += "\n" + info_message
+
+    return question_details_md
+
+
 intents = discord.Intents.default()
 client = discord.Client(intents=intents)
 
@@ -111,10 +125,11 @@ async def create_thread():
         question_details_md = convert_html_to_markdown(
             question_details_html, daily_metadata["link"]
         )
+        question_details_final = sainitize_question_details_md(question_details_md)
 
         await channel.create_thread(
             name=title,
-            content=question_details_md,
+            content=question_details_final,
             applied_tags=[tag_map[daily_metadata["difficulty"]]],
         )
         await client.close()
